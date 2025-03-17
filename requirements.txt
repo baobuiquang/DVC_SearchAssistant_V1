@@ -1,0 +1,10 @@
+rapidfuzz
+ipykernel
+ipywidgets
+fastapi
+uvicorn
+requests
+pyinstaller
+numpy
+tzdata
+underthesea

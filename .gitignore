@@ -1,0 +1,6 @@
+__pycache__/
+__hfcache__/
+__debug__/
+__venv__/
+.gradio/
+venv/
