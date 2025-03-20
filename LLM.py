@@ -10,8 +10,7 @@
 
 # ====================================================================================================
 
-KEY_OPENROUTER = "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"
-KEY_DEEPINFRA = "rD6SaD8vai3LxvehBVTyvq2djEjCIzGQ"
+KEY_OPENROUTER = "" # "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"
 
 # ====================================================================================================
 
@@ -35,7 +34,7 @@ def Process_LLM_streaming(prompt, vendor="ollama", history=None):
     if vendor=="openrouter":
         LLM_API_KEY = KEY_OPENROUTER
         LLM_API_URL = "https://openrouter.ai/api/v1/chat/completions"
-        LLM_API_MDL = "google/gemini-2.0-flash-lite-001"
+        LLM_API_MDL = "qwen/qwen-2.5-72b-instruct" # "google/gemini-2.0-flash-lite-001"
     headers = {
         "Authorization": f"Bearer {LLM_API_KEY}",
         "Content-Type": "application/json",
