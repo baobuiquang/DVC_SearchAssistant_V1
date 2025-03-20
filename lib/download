@@ -1,3 +1,5 @@
 torch
 > https://download.pytorch.org/whl/torch/
 > https://download.pytorch.org/whl/cpu/torch-2.6.0%2Bcpu-cp310-cp310-win_amd64.whl#sha256=6e22f0b13db8d53e55bcb3b46c9dd4b6676d1c44051b56753e745cec3075b333
+
+https://download.pytorch.org/whl/cpu/torch-2.6.0%2Bcpu-cp310-cp310-linux_x86_64.whl#sha256=35a9e78b7e4096968b54c1a198687b981569c50ae93e661aa430f9fd208da102
