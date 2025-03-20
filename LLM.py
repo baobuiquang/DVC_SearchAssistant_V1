@@ -34,7 +34,7 @@ def Process_LLM_streaming(prompt, vendor="ollama", history=None):
     if vendor=="openrouter":
         LLM_API_KEY = KEY_OPENROUTER
         LLM_API_URL = "https://openrouter.ai/api/v1/chat/completions"
-        LLM_API_MDL = "qwen/qwen-2.5-72b-instruct" # "google/gemini-2.0-flash-lite-001"
+        LLM_API_MDL = "qwen/qwen-2.5-7b-instruct" # "google/gemini-2.0-flash-lite-001"
     headers = {
         "Authorization": f"Bearer {LLM_API_KEY}",
         "Content-Type": "application/json",
