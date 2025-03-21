@@ -229,7 +229,7 @@ theme = gr.themes.Base(
     font_mono=[gr.themes.GoogleFont('Ubuntu Mono')]
 )
 head = """
-<link rel="icon" href="https://dichvucong.lamdong.gov.vn/vi/brand_logo.03259f126b69e6173b3a.png">
+<link rel="icon" href="https://raw.githubusercontent.com/baobuiquang/VNPT_DVC_SemSearchAPI/refs/heads/main/logo.png">
 """
 css = """
 main {
@@ -453,8 +453,8 @@ with gr.Blocks(title="Chatbot hỗ trợ tìm kiếm thủ tục", theme=theme, 
         with gr.Column(elem_id="cmp_col_left"):
             gr.Markdown()
         with gr.Column(elem_id="cmp_col_mid"):
-            cmp_history = gr.Chatbot(elem_id="cmp_history", placeholder="![image](https://dichvucong.lamdong.gov.vn/vi/brand_logo.03259f126b69e6173b3a.png)\n## Xin chào!\nMình là chatbot hỗ trợ tìm kiếm thủ tục dịch vụ công.", type="messages", group_consecutive_messages=False, container=False,
-                avatar_images=("https://dichvucong.lamdong.gov.vn/vi/brand_logo.03259f126b69e6173b3a.png", "https://dichvucong.lamdong.gov.vn/vi/brand_logo.03259f126b69e6173b3a.png"))
+            cmp_history = gr.Chatbot(elem_id="cmp_history", placeholder="![image](https://raw.githubusercontent.com/baobuiquang/VNPT_DVC_SemSearchAPI/refs/heads/main/logo.png)\n## Xin chào!\nMình là chatbot hỗ trợ tìm kiếm thủ tục dịch vụ công.", type="messages", group_consecutive_messages=False, container=False,
+                avatar_images=("https://raw.githubusercontent.com/baobuiquang/VNPT_DVC_SemSearchAPI/refs/heads/main/logo.png", "https://raw.githubusercontent.com/baobuiquang/VNPT_DVC_SemSearchAPI/refs/heads/main/logo.png"))
             cmp_message = gr.Textbox(elem_id="cmp_message", placeholder="Nhập câu hỏi ở đây", submit_btn=True, container=False)
             cmp_footer = gr.Markdown("AI có thể nhầm lẫn và sai sót. Hãy kiểm tra lại thông tin trên [cổng dịch vụ công](https://dichvucong.lamdong.gov.vn).", elem_id="cmp_footer", container=False)
         with gr.Column(elem_id="cmp_col_right"):
