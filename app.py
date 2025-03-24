@@ -97,6 +97,7 @@ def fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh(message, history, sleeptime):
         history.append({"role": "assistant", "content": "/"})
         history.append({"role": "assistant", "content": "/"})
         history.append({"role": "assistant", "content": "/"})
+        history.append({"role": "assistant", "content": "/"})
         yield "", history; return
 
     # ----------------------------------------------------------------------------------------------------
@@ -154,7 +155,7 @@ Từ câu hỏi của người dùng, tìm ra duy nhất 1 thủ tục liên qua
                 idx = next((i for i, d in enumerate(thutucs) if d["Mã chuẩn"] == llm_object_1["Mã chuẩn"].strip()), -1)
                 if idx != -1:
                     print(f"✅ {thutucs[idx]['Tên thủ tục']} ({thutucs[idx]['thutuc_Link']})")
-                    # -------------------------------------------------- Part 1
+                    # -------------------------------------------------- Part 1: content
                     eee = thutucs[idx]
                     CHARACTERS_LIMIT = 200
                     # XEMCHITIET_TEXT = f"... [(xem chi tiết)]({thutucs[idx]['thutuc_Link']})"
@@ -191,21 +192,28 @@ Từ câu hỏi của người dùng, tìm ra duy nhất 1 thủ tục liên qua
                         time.sleep(sleeptime)
                         history[-1]["content"] += chr
                         yield "", history
-                    # -------------------------------------------------- Part 2
-                    bot_response = f"{thutucs[idx]['thutuc_Link']}"
+                    # -------------------------------------------------- Part 2: name
+                    bot_response = f"{thutucs[idx]['Tên thủ tục']}"
                     history.append({"role": "assistant", "content": ""})
                     for chr in re.split(r'(\s)', bot_response):
                         time.sleep(sleeptime)
                         history[-1]["content"] += chr
                         yield "", history
-                    # -------------------------------------------------- Part 3
+                    # -------------------------------------------------- Part 3: code
                     bot_response = f"{thutucs[idx]['Mã chuẩn']}"
                     history.append({"role": "assistant", "content": ""})
                     for chr in re.split(r'(\s)', bot_response):
                         time.sleep(sleeptime)
                         history[-1]["content"] += chr
                         yield "", history
-                    # -------------------------------------------------- Part 4
+                    # -------------------------------------------------- Part 4: link
+                    bot_response = f"{thutucs[idx]['thutuc_Link']}"
+                    history.append({"role": "assistant", "content": ""})
+                    for chr in re.split(r'(\s)', bot_response):
+                        time.sleep(sleeptime)
+                        history[-1]["content"] += chr
+                        yield "", history
+                    # -------------------------------------------------- Part 5
                     history.append({"role": "assistant", "content": gr.HTML(f"<a href='{thutucs[idx]['thutuc_Link']}' target='_blank' id='button-open-link'><div>Mở văn bản thủ tục ➝</div></a>")})
                     yield "", history
                     # --------------------------------------------------
@@ -220,21 +228,26 @@ Từ câu hỏi của người dùng, tìm ra duy nhất 1 thủ tục liên qua
     history.append({"role": "assistant", "content": "/"})
     history.append({"role": "assistant", "content": "/"})
     history.append({"role": "assistant", "content": "/"})
+    history.append({"role": "assistant", "content": "/"})
     yield "", history; return
 
 def fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh_non_streaming(message, history, sleeptime):
     res = {
-        "machuan": "⚠️",
+        "code": "⚠️",
+        "name": "⚠️",
         "link": "⚠️",
-        "noidung": "⚠️",
+        "input": str(message),
+        "content": "⚠️",
     }
     for e in fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh(message, history, sleeptime):
         res = e
     try:
         res = {
-            "machuan": res[1][-2]["content"],
-            "link": res[1][-3]["content"],
-            "noidung": res[1][-4]["content"],
+            "code": res[1][-3]["content"],
+            "name": res[1][-4]["content"],
+            "link": res[1][-2]["content"],
+            "input": str(message),
+            "content": res[1][-5]["content"],
         }
     except:
         pass
