@@ -1,4 +1,4 @@
-import _config
+import _build_config
 import psutil
 
 def kill_process(process_name):
@@ -17,5 +17,5 @@ def kill_process(process_name):
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
 
-kill_process(f"{_config.PYTHON_FILE_NAME}")
-kill_process(f"{_config.BUILD_NAME}.exe")
+kill_process(f"{_build_config.PYTHON_FILE_NAME}")
+kill_process(f"{_build_config.BUILD_NAME}.exe")

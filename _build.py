@@ -1,4 +1,4 @@
-import _config
+import _build_config
 import PyInstaller.__main__
 import shutil
 import os
@@ -6,8 +6,8 @@ import os
 BUILD_DIR = "build"
 
 PyInstaller.__main__.run([
-    f'{_config.PYTHON_FILE_NAME}',
-    f'--name={_config.BUILD_NAME}',
+    f'{_build_config.PYTHON_FILE_NAME}',
+    f'--name={_build_config.BUILD_NAME}',
     '--noconsole',
     '--clean',
     '--noconfirm',
@@ -33,5 +33,5 @@ def copy_folder(source, destination):
         print("Permission denied.")
     except Exception as e:
         print(f"An error occurred: {e}")
-for fld in _config.FOLDERS_TO_ADD:
-    copy_folder(f"{fld}", f"{BUILD_DIR}/dist/{_config.BUILD_NAME}/{fld}")
+for fld in _build_config.FOLDERS_TO_ADD:
+    copy_folder(f"{fld}", f"{BUILD_DIR}/dist/{_build_config.BUILD_NAME}/{fld}")
