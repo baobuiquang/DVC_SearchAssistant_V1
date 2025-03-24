@@ -48,3 +48,5 @@ def copy_folder(source, destination):
         print(f"An error occurred: {e}")
 for fld in _build_config.FOLDERS_TO_ADD:
     copy_folder(f"{fld}", f"{BUILD_DIR}/dist/{_build_config.BUILD_NAME}/{fld}")
+    
+copy_folder("build/build_bin/bin", "build/dist/VNPT_DVC_SearchAPI/bin")
