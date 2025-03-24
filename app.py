@@ -496,8 +496,8 @@ with gr.Blocks(title="Chatbot hỗ trợ tìm kiếm thủ tục", theme=theme, 
         with gr.Column(elem_id="cmp_col_right"):
             gr.Markdown()
 
-    cmp_message.submit(fn=fn_1, inputs=[cmp_message, cmp_history], outputs=[cmp_history]
-                ).then(fn=fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh, inputs=[cmp_message, cmp_history, cmp_api_stream_sleeptime], outputs=[cmp_message, cmp_history])
+    cmp_message.submit(fn=fn_1, inputs=[cmp_message, cmp_history], outputs=[cmp_history], show_api=False
+                ).then(fn=fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh, inputs=[cmp_message, cmp_history, cmp_api_stream_sleeptime], outputs=[cmp_message, cmp_history], show_api=False)
 
     cmp_message.submit(fn=fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh_non_streaming, inputs=[cmp_message, cmp_history, cmp_api_non_stream_sleeptime], outputs=[cmp_api_non_streaming], api_name="timkiemthutuc")
 

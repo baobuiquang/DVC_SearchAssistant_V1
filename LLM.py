@@ -1,17 +1,3 @@
-# prompt = "Giải thích 1 + 2 = ?"
-# response = Process_LLM(prompt, vendor="ollama", history=[], streaming=True)
-
-# # non-streaming
-# print(response)
-
-# # streaming
-# for e in response:
-#     print(e)
-
-# ====================================================================================================
-
-KEY_OPENROUTER = ""
-
 # ====================================================================================================
 
 import requests

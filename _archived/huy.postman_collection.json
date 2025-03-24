@@ -1,0 +1,44 @@
+{
+	"info": {
+		"_postman_id": "01acb8b7-3aa0-4d96-bc00-0c315c804413",
+		"name": "ShareData",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10771967"
+	},
+	"item": [
+		{
+			"name": "https://lamdongtructuyen.vn/hub/api/ShareData/GetData",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"key\": \"rF9aL8bP2jD6wT0o3kYzF4xM1nQ7uG2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://lamdongtructuyen.vn/hub/api/ShareData/GetData",
+					"protocol": "https",
+					"host": [
+						"lamdongtructuyen",
+						"vn"
+					],
+					"path": [
+						"hub",
+						"api",
+						"ShareData",
+						"GetData"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
