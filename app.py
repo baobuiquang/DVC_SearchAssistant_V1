@@ -1,3 +1,12 @@
+try:
+    import shutil
+    shutil.copy(
+        "venv/Lib/site-packages/underthesea/pipeline/text_normalize/tn_rules_2023_07_14.bin", 
+        "bin/underthesea/pipeline/text_normalize/tn_rules_2023_07_14.bin"
+    )
+except:
+    print("⚠️")
+
 # ====================================================================================================
 
 from sentence_transformers import SentenceTransformer
