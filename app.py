@@ -86,14 +86,18 @@ def retrieve_idx_keywordmatch(text, thutucs, top=5):
 
 # ====================================================================================================
 
-def fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh(message, history):
+def fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh(message, history, sleeptime):
 
     print("="*100)
     print(f"> {message}")
 
     input_text = message.strip()
     if input_text == "":
-        history.append({"role": "assistant", "content": "Mình có thể giúp gì được cho bạn?"}); yield "", history; return
+        history.append({"role": "assistant", "content": "Mình có thể giúp gì được cho bạn?"})
+        history.append({"role": "assistant", "content": "/"})
+        history.append({"role": "assistant", "content": "/"})
+        history.append({"role": "assistant", "content": "/"})
+        yield "", history; return
 
     # ----------------------------------------------------------------------------------------------------
     res_exactmatch_idx = retrieve_idx_exactmatch(text=input_text, thutucs=thutucs, top=3)
@@ -112,30 +116,30 @@ def fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh(message, history):
     # ----------------------------------------------------------------------------------------------------
     p_danhsachthutuc = [{"Mã chuẩn": thutucs[idx]["Mã chuẩn"], "Tên thủ tục": thutucs[idx]["Tên thủ tục"]} for idx in res_all_idx]
     p_json_schema = """\
-    {
-        "type": "object",
-        "properties": {
-            "Mã chuẩn": {"type": "string", "description": "Mã chuẩn của thủ tục liên quan nhất"},
-            "Tên thủ tục": {"type": "string", "description": "Tên của thủ tục liên quan nhất"}
-        }
-    }"""
+{
+    "type": "object",
+    "properties": {
+        "Mã chuẩn": {"type": "string", "description": "Mã chuẩn của thủ tục liên quan nhất"},
+        "Tên thủ tục": {"type": "string", "description": "Tên của thủ tục liên quan nhất"}
+    }
+}"""
     prompt_1 = f"""\
-    Bạn sẽ được cung cấp: (1) Câu hỏi của người dùng, (2) Danh sách thủ tục hiện có, và (3) Schema cấu trúc của kết quả.
-    Nhiệm vụ của bạn là: (4) Trích xuất duy nhất 1 thủ tục liên quan nhất đến câu hỏi của người dùng.
+Bạn sẽ được cung cấp: (1) Câu hỏi của người dùng, (2) Danh sách thủ tục hiện có, và (3) Schema cấu trúc của kết quả.
+Nhiệm vụ của bạn là: (4) Trích xuất duy nhất 1 thủ tục liên quan nhất đến câu hỏi của người dùng.
 
-    ### (1) Câu hỏi của người dùng:
-    "{input_text}"
+### (1) Câu hỏi của người dùng:
+"{input_text}"
 
-    ### (2) Danh sách thủ tục hiện có:
-    {p_danhsachthutuc}
+### (2) Danh sách thủ tục hiện có:
+{p_danhsachthutuc}
 
-    ### (3) Schema cấu trúc của kết quả:
-    {p_json_schema}
+### (3) Schema cấu trúc của kết quả:
+{p_json_schema}
 
-    ### (4) Nhiệm vụ:
-    Từ câu hỏi của người dùng, tìm ra duy nhất 1 thủ tục liên quan nhất đến câu hỏi của người dùng, tuân thủ schema một cách chính xác.
-    Định dạng kết quả: Không giải thích, không bình luận, không văn bản thừa. Chỉ trả về kết quả JSON hợp lệ. Bắt đầu bằng "{{", kết thúc bằng "}}".
-    """
+### (4) Nhiệm vụ:
+Từ câu hỏi của người dùng, tìm ra duy nhất 1 thủ tục liên quan nhất đến câu hỏi của người dùng, tuân thủ schema một cách chính xác.
+Định dạng kết quả: Không giải thích, không bình luận, không văn bản thừa. Chỉ trả về kết quả JSON hợp lệ. Bắt đầu bằng "{{", kết thúc bằng "}}".
+"""
     # print(prompt_1)
 
     # ----------------------------------------------------------------------------------------------------
@@ -153,45 +157,55 @@ def fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh(message, history):
                     # -------------------------------------------------- Part 1
                     eee = thutucs[idx]
                     CHARACTERS_LIMIT = 200
-                    XEMCHITIET_TEXT = f"... [(xem chi tiết)]({thutucs[idx]['thutuc_Link']})"
-                    bot_response = f"""\
-## Thủ tục: {eee['Tên thủ tục'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['Tên thủ tục']) > CHARACTERS_LIMIT else ""}
-\n### Trình tự thực hiện:
-{eee['thutuc_Trình tự thực hiện'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Trình tự thực hiện']) > CHARACTERS_LIMIT else ""}
-\n### Cách thức thực hiện:
-{eee['thutuc_Cách thức thực hiện'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Cách thức thực hiện']) > CHARACTERS_LIMIT else ""}
-\n### Thành phần hồ sơ:
-{eee['thutuc_Thành phần hồ sơ'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Thành phần hồ sơ']) > CHARACTERS_LIMIT else ""}
-\n### Thời gian giải quyết:
-{eee['thutuc_Thời gian giải quyết'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Thời gian giải quyết']) > CHARACTERS_LIMIT else ""}
-\n### Đối tượng thực hiện:
-{eee['thutuc_Đối tượng thực hiện'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Đối tượng thực hiện']) > CHARACTERS_LIMIT else ""}
-\n### Cơ quan thực hiện:
-{eee['thutuc_Cơ quan thực hiện'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Cơ quan thực hiện']) > CHARACTERS_LIMIT else ""}
-\n### Kết quả:
-{eee['thutuc_Kết quả'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Kết quả']) > CHARACTERS_LIMIT else ""}
-\n### Phí, lệ phí:
-{eee['thutuc_Phí, lệ phí'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Phí, lệ phí']) > CHARACTERS_LIMIT else ""}
-\n### Tên mẫu đơn, tờ khai:
-{eee['thutuc_Tên mẫu đơn, tờ khai'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Tên mẫu đơn, tờ khai']) > CHARACTERS_LIMIT else ""}
-\n### Yêu cầu, điều kiện:
-{eee['thutuc_Yêu cầu, điều kiện'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Yêu cầu, điều kiện']) > CHARACTERS_LIMIT else ""}
-\n### Căn cứ pháp lý:
-{eee['thutuc_Căn cứ pháp lý'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Căn cứ pháp lý']) > CHARACTERS_LIMIT else ""}
-                    """
+                    # XEMCHITIET_TEXT = f"... [(xem chi tiết)]({thutucs[idx]['thutuc_Link']})"
+                    XEMCHITIET_TEXT = f"... <a href='{thutucs[idx]['thutuc_Link']}' target='_blank'>(xem chi tiết)</a>"
+                    bot_response = f"\
+<h2>Thủ tục: {eee['Tên thủ tục'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['Tên thủ tục']) > CHARACTERS_LIMIT else ''}</h2>\
+<h3>Trình tự thực hiện:</h3>\
+<p>{eee['thutuc_Trình tự thực hiện'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Trình tự thực hiện']) > CHARACTERS_LIMIT else ''}</p>\
+<h3>Cách thức thực hiện:</h3>\
+<p>{eee['thutuc_Cách thức thực hiện'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Cách thức thực hiện']) > CHARACTERS_LIMIT else ''}</p>\
+<h3>Thành phần hồ sơ:</h3>\
+<p>{eee['thutuc_Thành phần hồ sơ'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Thành phần hồ sơ']) > CHARACTERS_LIMIT else ''}</p>\
+<h3>Thời gian giải quyết:</h3>\
+<p>{eee['thutuc_Thời gian giải quyết'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Thời gian giải quyết']) > CHARACTERS_LIMIT else ''}</p>\
+<h3>Đối tượng thực hiện:</h3>\
+<p>{eee['thutuc_Đối tượng thực hiện'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Đối tượng thực hiện']) > CHARACTERS_LIMIT else ''}</p>\
+<h3>Cơ quan thực hiện:</h3>\
+<p>{eee['thutuc_Cơ quan thực hiện'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Cơ quan thực hiện']) > CHARACTERS_LIMIT else ''}</p>\
+<h3>Kết quả:</h3>\
+<p>{eee['thutuc_Kết quả'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Kết quả']) > CHARACTERS_LIMIT else ''}</p>\
+<h3>Phí, lệ phí:</h3>\
+<p>{eee['thutuc_Phí, lệ phí'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Phí, lệ phí']) > CHARACTERS_LIMIT else ''}</p>\
+<h3>Tên mẫu đơn, tờ khai:</h3>\
+<p>{eee['thutuc_Tên mẫu đơn, tờ khai'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Tên mẫu đơn, tờ khai']) > CHARACTERS_LIMIT else ''}</p>\
+<h3>Yêu cầu, điều kiện:</h3>\
+<p>{eee['thutuc_Yêu cầu, điều kiện'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Yêu cầu, điều kiện']) > CHARACTERS_LIMIT else ''}</p>\
+<h3>Căn cứ pháp lý:</h3>\
+<p>{eee['thutuc_Căn cứ pháp lý'][:CHARACTERS_LIMIT]}{XEMCHITIET_TEXT if len(eee['thutuc_Căn cứ pháp lý']) > CHARACTERS_LIMIT else ''}</p>\
+<h3>Xem đầy đủ văn bản thủ tục tại:</h3>\
+<a href='{thutucs[idx]['thutuc_Link']}' target='_blank'>{thutucs[idx]['thutuc_Link']}</a>\
+"
                     history.append({"role": "assistant", "content": ""})
                     for chr in re.split(r'(\s)', bot_response):
-                        time.sleep(0.001)
+                        time.sleep(sleeptime)
                         history[-1]["content"] += chr
                         yield "", history
                     # -------------------------------------------------- Part 2
-                    bot_response = f"Xem đầy đủ văn bản thủ tục tại: {thutucs[idx]['thutuc_Link']}"
+                    bot_response = f"{thutucs[idx]['thutuc_Link']}"
                     history.append({"role": "assistant", "content": ""})
                     for chr in re.split(r'(\s)', bot_response):
-                        time.sleep(0.001)
+                        time.sleep(sleeptime)
                         history[-1]["content"] += chr
                         yield "", history
                     # -------------------------------------------------- Part 3
+                    bot_response = f"{thutucs[idx]['Mã chuẩn']}"
+                    history.append({"role": "assistant", "content": ""})
+                    for chr in re.split(r'(\s)', bot_response):
+                        time.sleep(sleeptime)
+                        history[-1]["content"] += chr
+                        yield "", history
+                    # -------------------------------------------------- Part 4
                     history.append({"role": "assistant", "content": gr.HTML(f"<a href='{thutucs[idx]['thutuc_Link']}' target='_blank' id='button-open-link'><div>Mở văn bản thủ tục ➝</div></a>")})
                     yield "", history
                     # --------------------------------------------------
@@ -202,11 +216,29 @@ def fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh(message, history):
                 pass
 
     # ----------------------------------------------------------------------------------------------------
-    history.append({"role": "assistant", "content": "Hiện tại mình chưa đủ thông tin để trả lời câu hỏi này."})
-    history.append({"role": "assistant", "content": "Mình có thể giúp gì được cho bạn?"})
+    history.append({"role": "assistant", "content": "Hiện tại mình chưa đủ thông tin để trả lời câu hỏi này.\nMình có thể giúp gì được cho bạn?"})
+    history.append({"role": "assistant", "content": "/"})
+    history.append({"role": "assistant", "content": "/"})
+    history.append({"role": "assistant", "content": "/"})
     yield "", history; return
 
-
+def fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh_non_streaming(message, history, sleeptime):
+    res = {
+        "machuan": "⚠️",
+        "link": "⚠️",
+        "noidung": "⚠️",
+    }
+    for e in fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh(message, history, sleeptime):
+        res = e
+    try:
+        res = {
+            "machuan": res[1][-2]["content"],
+            "link": res[1][-3]["content"],
+            "noidung": res[1][-4]["content"],
+        }
+    except:
+        pass
+    return res
 
 
 
@@ -237,7 +269,7 @@ main {
     padding: 0 !important;
     max-width: 100% !important;
 }
-footer { display: none !important; }
+/ * footer { display: none !important; } * /
 * { -ms-overflow-style: none; scrollbar-width: none; }
 *::-webkit-scrollbar { display: none; }
 
@@ -452,6 +484,10 @@ with gr.Blocks(title="Chatbot hỗ trợ tìm kiếm thủ tục", theme=theme, 
     with gr.Row(elem_id="cmp_row"):
         with gr.Column(elem_id="cmp_col_left"):
             gr.Markdown()
+            cmp_api_stream_sleeptime = gr.Number(0.001, label="Stream Sleeptime")
+            cmp_api_non_stream_sleeptime = gr.Number(0.000, label="Non-stream Sleeptime")
+            # cmp_api_non_streaming = gr.Code(wrap_lines=True, show_line_numbers=False, label="Non-stream API Result")
+            cmp_api_non_streaming = gr.JSON(label="Non-stream API Result")
         with gr.Column(elem_id="cmp_col_mid"):
             cmp_history = gr.Chatbot(elem_id="cmp_history", placeholder="![image](https://raw.githubusercontent.com/baobuiquang/VNPT_DVC_SemSearchAPI/refs/heads/main/logo.png)\n## Xin chào!\nMình là chatbot hỗ trợ tìm kiếm thủ tục dịch vụ công.", type="messages", group_consecutive_messages=False, container=False,
                 avatar_images=("https://raw.githubusercontent.com/baobuiquang/VNPT_DVC_SemSearchAPI/refs/heads/main/logo.png", "https://raw.githubusercontent.com/baobuiquang/VNPT_DVC_SemSearchAPI/refs/heads/main/logo.png"))
@@ -461,9 +497,11 @@ with gr.Blocks(title="Chatbot hỗ trợ tìm kiếm thủ tục", theme=theme, 
             gr.Markdown()
 
     cmp_message.submit(fn=fn_1, inputs=[cmp_message, cmp_history], outputs=[cmp_history]
-                ).then(fn=fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh, inputs=[cmp_message, cmp_history], outputs=[cmp_message, cmp_history])
+                ).then(fn=fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh, inputs=[cmp_message, cmp_history, cmp_api_stream_sleeptime], outputs=[cmp_message, cmp_history])
+
+    cmp_message.submit(fn=fn_ohyeahhhhhhhhhhhhhhhhhhhhhhhhhh_non_streaming, inputs=[cmp_message, cmp_history, cmp_api_non_stream_sleeptime], outputs=[cmp_api_non_streaming], api_name="timkiemthutuc")
 
 # ====================================================================================================
 
 if __name__ == "__main__":
-    demo.launch(share=False)
+    demo.launch(share=False, server_port=5002)

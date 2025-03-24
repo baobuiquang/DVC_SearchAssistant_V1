@@ -10,7 +10,7 @@
 
 # ====================================================================================================
 
-KEY_OPENROUTER = "" # "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"
+KEY_OPENROUTER = ""
 
 # ====================================================================================================
 
@@ -31,16 +31,9 @@ def Process_LLM_streaming(prompt, vendor="ollama", history=None):
         LLM_API_KEY = "ollama"
         LLM_API_URL = "http://192.168.80.99:11434/v1/chat/completions"
         LLM_API_MDL = "qwen2.5:7b"
-    if vendor=="openrouter":
-        LLM_API_KEY = KEY_OPENROUTER
-        LLM_API_URL = "https://openrouter.ai/api/v1/chat/completions"
-        LLM_API_MDL = "qwen/qwen-2.5-7b-instruct" # "google/gemini-2.0-flash-lite-001"
     headers = {
         "Authorization": f"Bearer {LLM_API_KEY}",
         "Content-Type": "application/json",
-        # # Vendor: OpenRouter
-        "HTTP-Referer": "https://onelevel.studio/",
-        "X-Title": "V N P T",
     }
     payload = {
         "stream": True,
@@ -55,12 +48,6 @@ def Process_LLM_streaming(prompt, vendor="ollama", history=None):
         # "repetition_penalty": 1.0,   # Default: 1.0 [0.0 to 2.0]
         # "presence_penalty":   0.0,   # Default: 0.0 [-2.0 to 2.0]
         # "frequency_penalty":  0.0,   # Default: 0.0 [-2.0 to 2.0]
-        # # # Vendor: OpenRouter
-        "provider": {
-            "sort": "price",
-            "allow_fallbacks": False,
-            "require_parameters": True,
-        },
     }
     # --------------------------------------------------/
     # --------------------\

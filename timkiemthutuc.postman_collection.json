@@ -1,0 +1,55 @@
+{
+	"info": {
+		"_postman_id": "01967688-9570-4c43-a471-f25e14409359",
+		"name": "MyPostmanCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43366618"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:5002/gradio_api/call/timkiemthutuc/{{EVENT_ID}}",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let cauhoi = \"Tôi muốn khởi nghiệp thì cần thủ tục gì?\"\r",
+							"\r",
+							"const postRequest = {\r",
+							"  url: 'http://127.0.0.1:5002/gradio_api/call/timkiemthutuc',\r",
+							"  method: 'POST',\r",
+							"  header: { 'Content-Type': 'application/json' },\r",
+							"  body: { mode: 'raw', raw: JSON.stringify({ \"data\": [ cauhoi, [], 0 ] }) }\r",
+							"};\r",
+							"pm.sendRequest(postRequest, (error, response) => { if (error) { console.error(error); } else { const responseJson = response.json(); pm.environment.set(\"EVENT_ID\", responseJson.event_id); } });"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5002/gradio_api/call/timkiemthutuc/{{EVENT_ID}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5002",
+					"path": [
+						"gradio_api",
+						"call",
+						"timkiemthutuc",
+						"{{EVENT_ID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
