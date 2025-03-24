@@ -1,4 +1,4 @@
-PYTHON_FILE_NAME = "app.py"
+PYTHON_FILE_NAME = "api.py"
 
 BUILD_NAME = "VNPT_DVC_SearchAPI" # .exe
 
