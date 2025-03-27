@@ -13,8 +13,7 @@ underthesea==6.8.4
 # rapidfuzz
 # tzdata
 
-# selenium
-# webdriver-manager
-
-# ipykernel
-# ipywidgets
+selenium
+webdriver-manager
+ipykernel
+ipywidgets
