@@ -2,7 +2,7 @@
 
 ## I. Use
 
-Run `VNPT_DVC_SearchAPI.exe`
+Run `DVC_SearchAssistant_V1.exe`
 
 [http://localhost:5002/?input_text=Giấy tờ cần thiết để mình khởi nghiệp?](http://localhost:5002/?input_text=Giấy%20tờ%20cần%20thiết%20để%20mình%20khởi%20nghiệp?)
 

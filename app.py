@@ -274,7 +274,7 @@ theme = gr.themes.Base(
     font_mono=[gr.themes.GoogleFont('Ubuntu Mono')]
 )
 head = """
-<link rel="icon" href="https://raw.githubusercontent.com/baobuiquang/VNPT_DVC_SearchAPI/refs/heads/main/logo.png">
+<link rel="icon" href="https://raw.githubusercontent.com/baobuiquang/DVC_SearchAssistant_V1/refs/heads/main/logo.png">
 """
 css = """
 main {
@@ -502,8 +502,8 @@ with gr.Blocks(title="Chatbot hỗ trợ tìm kiếm thủ tục", theme=theme, 
             # cmp_api_non_streaming = gr.Code(wrap_lines=True, show_line_numbers=False, label="Non-stream API Result")
             cmp_api_non_streaming = gr.JSON(label="Non-stream API Result")
         with gr.Column(elem_id="cmp_col_mid"):
-            cmp_history = gr.Chatbot(elem_id="cmp_history", placeholder="![image](https://raw.githubusercontent.com/baobuiquang/VNPT_DVC_SearchAPI/refs/heads/main/logo.png)\n## Xin chào!\nMình là chatbot hỗ trợ tìm kiếm thủ tục dịch vụ công.", type="messages", group_consecutive_messages=False, container=False,
-                avatar_images=("https://raw.githubusercontent.com/baobuiquang/VNPT_DVC_SearchAPI/refs/heads/main/logo.png", "https://raw.githubusercontent.com/baobuiquang/VNPT_DVC_SearchAPI/refs/heads/main/logo.png"))
+            cmp_history = gr.Chatbot(elem_id="cmp_history", placeholder="![image](https://raw.githubusercontent.com/baobuiquang/DVC_SearchAssistant_V1/refs/heads/main/logo.png)\n## Xin chào!\nMình là chatbot hỗ trợ tìm kiếm thủ tục dịch vụ công.", type="messages", group_consecutive_messages=False, container=False,
+                avatar_images=("https://raw.githubusercontent.com/baobuiquang/DVC_SearchAssistant_V1/refs/heads/main/logo.png", "https://raw.githubusercontent.com/baobuiquang/DVC_SearchAssistant_V1/refs/heads/main/logo.png"))
             cmp_message = gr.Textbox(elem_id="cmp_message", placeholder="Nhập câu hỏi ở đây", submit_btn=True, container=False)
             cmp_footer = gr.Markdown("AI có thể nhầm lẫn và sai sót. Hãy kiểm tra lại thông tin trên [cổng dịch vụ công](https://dichvucong.lamdong.gov.vn).", elem_id="cmp_footer", container=False)
         with gr.Column(elem_id="cmp_col_right"):

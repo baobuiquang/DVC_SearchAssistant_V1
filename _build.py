@@ -76,4 +76,4 @@ def copy_if_not_exists(src, dst):
             else:
                 print(f"Skipped (already exists): {dst_path}")
 
-copy_if_not_exists("build/build_bin/bin", "build/dist/VNPT_DVC_SearchAPI/bin")
+copy_if_not_exists("build/build_bin/bin", "build/dist/DVC_SearchAssistant_V1/bin")
