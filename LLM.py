@@ -15,7 +15,8 @@ def Process_LLM_streaming(prompt, vendor="ollama", history=None):
     LLM_API_KEY, LLM_API_URL, LLM_API_MDL = None, None, None
     if vendor=="ollama":
         LLM_API_KEY = "ollama"
-        LLM_API_URL = "http://192.168.80.99:11434/v1/chat/completions"
+        # LLM_API_URL = "http://192.168.80.99:11434/v1/chat/completions"
+        LLM_API_URL = "http://192.168.20.62:11434/v1/chat/completions"
         LLM_API_MDL = "qwen2.5:7b"
     headers = {
         "Authorization": f"Bearer {LLM_API_KEY}",
