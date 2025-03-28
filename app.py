@@ -1,12 +1,3 @@
-try:
-    import shutil
-    shutil.copy(
-        "venv/Lib/site-packages/underthesea/pipeline/text_normalize/tn_rules_2023_07_14.bin", 
-        "bin/underthesea/pipeline/text_normalize/tn_rules_2023_07_14.bin"
-    )
-except:
-    print("⚠️")
-
 # ====================================================================================================
 
 from sentence_transformers import SentenceTransformer
@@ -41,8 +32,8 @@ def extract_keywords(text):
 # ====================================================================================================
 
 # ---------- Load models and embeddings ----------
-model_e5 = SentenceTransformer("onelevelstudio/M-E5-BASE")
-model_mpnet = SentenceTransformer("onelevelstudio/M-MPNET-BASE")
+model_e5 = SentenceTransformer("onelevelstudio/ML-E5-0.3B")
+model_mpnet = SentenceTransformer("onelevelstudio/MPNET-0.3B")
 embs_e5 = np.load("url/embs_e5")
 embs_mpnet = np.load("url/embs_mpnet")
 
