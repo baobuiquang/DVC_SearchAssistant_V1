@@ -18,4 +18,5 @@ def myapiyeah(input_text: str = ""):
 
 # ====================================================================================================
 if __name__ == "__main__":
-    uvicorn.run(app, host = "localhost", port = 5002, log_level="critical", log_config=None)
+    # uvicorn.run(app, host = "localhost", port = 5002, log_level="critical", log_config=None)
+    uvicorn.run(app, host = "0.0.0.0", port = 5002, log_level="critical", log_config=None)
