@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "134192be-e7f1-4f7b-a1c4-4256154dc679",
+		"_postman_id": "6aedb491-cb77-4aac-a727-d9e05fe74105",
 		"name": "DVC_SearchAssistant_V1",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "43366618"
@@ -12,13 +12,10 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://192.168.20.60:5002/?input_text=Làm sao để cưới vợ?",
+					"raw": "http://localhost:5002/?input_text=Giấy tờ cần thiết để mình khởi nghiệp.",
 					"protocol": "http",
 					"host": [
-						"192",
-						"168",
-						"20",
-						"60"
+						"localhost"
 					],
 					"port": "5002",
 					"path": [
@@ -27,8 +24,7 @@
 					"query": [
 						{
 							"key": "input_text",
-							"value": "Giấy tờ cần thiết để mình khởi nghiệp.",
-							"disabled": true
+							"value": "Giấy tờ cần thiết để mình khởi nghiệp."
 						},
 						{
 							"key": "input_text",
@@ -42,7 +38,8 @@
 						},
 						{
 							"key": "input_text",
-							"value": "Làm sao để cưới vợ?"
+							"value": "Làm sao để cưới vợ?",
+							"disabled": true
 						},
 						{
 							"key": "input_text",
